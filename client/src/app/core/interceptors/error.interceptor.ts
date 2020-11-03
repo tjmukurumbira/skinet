@@ -10,7 +10,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     constructor(private router: Router, private toastr: ToastrService) {}
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
-            catchError(error => {
+                catchError(error => {
                 if (error) {
                     if (error.status  === 400) {
                         if (error.error.errors) {

@@ -7,11 +7,12 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 const routes: Routes = [
   {
     path: '',
-    component: ShopComponent
+    component: ShopComponent,
   },
   {
     path: ':id',
-    component: ProductDetailsComponent
+    component: ProductDetailsComponent,
+    data: { breadcrumb: {alias: 'productDetails'}}
   },
 
  ];
