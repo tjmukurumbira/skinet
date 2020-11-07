@@ -12,7 +12,6 @@ import { ShopRoutingModule } from './shop-routing.module';
     CommonModule,
     SharedModule,
     ShopRoutingModule
-  ],
-  exports: []
+  ]
 })
 export class ShopModule { }

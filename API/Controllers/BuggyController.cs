@@ -1,38 +1,47 @@
 using API.Errors;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class BuggyController : BaseAPIController
+    public class BuggyController : BaseApiController
     {
-        private readonly StoreContext context;
-
+        private readonly StoreContext _context;
         public BuggyController(StoreContext context)
         {
-            this.context = context;
-
+            _context = context;
         }
 
-       
+        [HttpGet("testauth")]
+        [Authorize]
+        public ActionResult<string> GetSecretText()
+        {
+            return "secret stuff";
+        }
+
         [HttpGet("notfound")]
         public ActionResult GetNotFoundRequest()
         {
-            var prod = context.Products.Find(3746);
-            if (prod== null){
+            var thing = _context.Products.Find(42);
+
+            if (thing == null) 
+            {
                 return NotFound(new ApiResponse(404));
             }
+
             return Ok();
         }
 
-         [HttpGet("servererror")]
+        [HttpGet("servererror")]
         public ActionResult GetServerError()
         {
-             var prod = context.Products.Find(3746);
-             prod.ToString();
+            var thing = _context.Products.Find(42);
+
+            var thingToReturn = thing.ToString();
+
             return Ok();
         }
-
 
         [HttpGet("badrequest")]
         public ActionResult GetBadRequest()
@@ -41,7 +50,7 @@ namespace API.Controllers
         }
 
         [HttpGet("badrequest/{id}")]
-        public ActionResult GetNotFound(int id)
+        public ActionResult GetNotFoundRequest(int id)
         {
             return Ok();
         }
